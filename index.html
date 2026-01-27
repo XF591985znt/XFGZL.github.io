@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XF 智能办公 - AI加速经营决策，数据驱动业绩增长</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-dark: #0f172a;
+            --primary: #1e293b;
+            --primary-light: #334155;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --accent-light: #60a5fa;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-border: rgba(51, 65, 85, 0.5);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(30, 107, 184, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(30, 64, 175, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+        }
+        
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background-color: rgba(15, 23, 42, 0.9);
+            padding: 25px 0;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 36px;
+            color: var(--accent);
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .logo-text {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            background: linear-gradient(to right, #60a5fa, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .tagline {
+            font-size: 16px;
+            color: var(--text-secondary);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+        
+        .all-tag {
+            background-color: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 20px;
+            padding: 8px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent-light);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .all-tag:hover {
+            background-color: rgba(59, 130, 246, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        /* 功能网格 */
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 40px 0 30px;
+            color: var(--text-primary);
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .section-title:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--accent), var(--accent-light));
+            border-radius: 4px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            padding-bottom: 60px;
+        }
+        
+        .feature-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 28px;
+            border: 1px solid var(--card-border);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .feature-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--accent), var(--accent-light));
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            color: var(--accent-light);
+        }
+        
+        .feature-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+        
+        .feature-desc {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            flex-grow: 1;
+            line-height: 1.5;
+        }
+        
+        .feature-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 15px;
+            text-decoration: none;
+            padding: 12px 0;
+            transition: all 0.2s;
+            border-top: 1px solid rgba(51, 65, 85, 0.5);
+            padding-top: 15px;
+        }
+        
+        .feature-link:hover {
+            color: var(--accent-light);
+        }
+        
+        .feature-link i {
+            font-size: 14px;
+            transition: transform 0.3s;
+        }
+        
+        .feature-link:hover i {
+            transform: translateX(5px);
+        }
+        
+        .feature-badge {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .badge-hot {
+            background-color: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        
+        .badge-new {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        
+        .badge-rec {
+            background-color: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: rgba(15, 23, 42, 0.95);
+            padding: 50px 0 30px;
+            border-top: 1px solid rgba(51, 65, 85, 0.5);
+            margin-top: 40px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .footer-logo-text {
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(to right, #60a5fa, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .footer-tagline {
+            font-size: 15px;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 600px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 35px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-light);
+        }
+        
+        .copyright {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(51, 65, 85, 0.5);
+            width: 100%;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+                gap: 20px;
+            }
+            
+            .logo {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 22px;
+                margin: 30px 0 20px;
+            }
+            
+            .footer-links {
+                gap: 20px;
+            }
+        }
+        
+        /* 动画效果 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .feature-card {
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+        
+        /* 延迟动画 */
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.15s; }
+        .feature-card:nth-child(3) { animation-delay: 0.2s; }
+        .feature-card:nth-child(4) { animation-delay: 0.25s; }
+        .feature-card:nth-child(5) { animation-delay: 0.3s; }
+        .feature-card:nth-child(6) { animation-delay: 0.35s; }
+        .feature-card:nth-child(7) { animation-delay: 0.4s; }
+        .feature-card:nth-child(8) { animation-delay: 0.45s; }
+        .feature-card:nth-child(9) { animation-delay: 0.5s; }
+        .feature-card:nth-child(10) { animation-delay: 0.55s; }
+        .feature-card:nth-child(11) { animation-delay: 0.6s; }
+        .feature-card:nth-child(12) { animation-delay: 0.65s; }
+        .feature-card:nth-child(13) { animation-delay: 0.7s; }
+        .feature-card:nth-child(14) { animation-delay: 0.75s; }
+        .feature-card:nth-child(15) { animation-delay: 0.8s; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div>
+                        <div class="logo-text">XF 智能办公</div>
+                        <div class="tagline">AI加速经营决策，数据驱动业绩增长</div>
+                    </div>
+                </div>
+                <div class="all-tag">全部功能</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2 class="section-title">AI智能办公工具</h2>
+        <div class="features-grid" id="features-container">
+            <!-- 功能卡片将通过JavaScript动态生成 -->
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-brain" style="color: #3b82f6; font-size: 28px;"></i>
+                    <div class="footer-logo-text">XF 智能办公</div>
+                </div>
+                <div class="footer-tagline">
+                    为企业提供全方位的AI智能办公解决方案，提升工作效率，加速业务增长
+                </div>
+                <div class="footer-links">
+                    <a href="#">产品介绍</a>
+                    <a href="#">使用教程</a>
+                    <a href="#">API文档</a>
+                    <a href="#">价格方案</a>
+                    <a href="#">联系我们</a>
+                    <a href="#">隐私政策</a>
+                </div>
+                <div class="copyright">
+                    &copy; 2023 XF智能办公平台 版权所有 | 京ICP备2023000000号-1
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 功能数据
+        const features = [
+            {
+                id: 1,
+                title: "提示词综合体",
+                description: "修改文字更换产品，智能优化提示词，提升生成效果",
+                icon: "fas fa-keyboard",
+                link: "https://www.runninghub.cn/ai-detail/2015717763146321922/",
+                badge: "hot",
+                badgeText: "热门"
+            },
+            {
+                id: 2,
+                title: "超级抠图",
+                description: "一键去除背景，直出PNG格式，精准识别边缘",
+                icon: "fas fa-cut",
+                link: "https://www.runninghub.cn/ai-detail/1986238924643336193/",
+                badge: "rec",
+                badgeText: "推荐"
+            },
+            {
+                id: 3,
+                title: "图片去水印",
+                description: "智能识别并去除图片中的水印，保持原图画质",
+                icon: "fas fa-water",
+                link: "https://www.runninghub.cn/ai-detail/2010880694590902274/",
+                badge: "new",
+                badgeText: "新品"
+            },
+            {
+                id: 4,
+                title: "平铺上身",
+                description: "将白底图衣服一键穿上身，预览服装上身效果",
+                icon: "fas fa-tshirt",
+                link: "https://www.runninghub.cn/ai-detail/2015001206887813122/",
+                badge: "",
+                badgeText: ""
+            },
+            {
+                id: 5,
+                title: "文生图",
+                description: "通过提示词生成高质量图片，创意设计专用工具",
+                icon: "fas fa-paint-brush",
+                link: "https://www.runninghub.cn/ai-detail/2015717228200599553/",
+                badge: "hot",
+                badgeText: "热门"
+            },
+            {
+                id: 6,
+                title: "扩图",
+                description: "智能扩展图片边缘，上下左右扩展像素尺寸",
+                icon: "fas fa-expand-alt",
+                link: "https://www.runninghub.cn/ai-detail/2015722803193974785/",
+                badge: "",
+                badgeText: ""
+            },
+            {
+                id: 7,
+                title: "洗图",
+                description: "专业去除图片中的AI痕迹，使生成图更自然",
+                icon: "fas fa-broom",
+                link: "https://www.runninghub.cn/ai-detail/2008363662943195137/",
+                badge: "",
+                badgeText: ""
+            },
+            {
+                id: 8,
+                title: "详情页生成",
+                description: "根据商品信息自动生成电商详情页，提升转化",
+                icon: "fas fa-file-alt",
+                link: "https://www.runninghub.cn/ai-detail/2015716503575863297/",
+                badge: "new",
+                badgeText: "新品"
+            },
+            {
+                id: 9,
+                title: "图生图",
+                description: "基于原图生成新的变体，保留风格改变内容",
+                icon: "fas fa-sync-alt",
+                link: "https://www.runninghub.cn/ai-detail/2015716503575863297/",
+                badge: "",
+                badgeText: ""
+            },
+            {
+                id: 10,
+                title: "图片反推",
+                description: "分析图片内容并反推生成提示词，便于复用",
+                icon: "fas fa-search",
+                link: "https://www.runninghub.cn/ai-detail/2001168045299167233/",
+                badge: "",
+                badgeText: ""
+            },
+            {
+                id: 11,
+                title: "上衣转平铺",
+                description: "将实拍上衣图片转换为白底平铺图，适合电商",
+                icon: "fas fa-vector-square",
+                link: "https://www.runninghub.cn/ai-detail/2014625483857596417/",
+                badge: "",
+                badgeText: ""
+            },
+            {
+                id: 12,
+                title: "参考图生图",
+                description: "根据参考图模板生成新的设计图，保持风格一致",
+                icon: "fas fa-clone",
+                link: "https://www.runninghub.cn/ai-detail/2014625483857596417/",
+                badge: "rec",
+                badgeText: "推荐"
+            },
+            {
+                id: 13,
+                title: "男女同框",
+                description: "根据单人图片生成情侣合照，智能匹配姿态",
+                icon: "fas fa-people-arrows",
+                link: "https://www.runninghub.cn/ai-detail/2015614942526836738/",
+                badge: "",
+                badgeText: ""
+            },
+            {
+                id: 14,
+                title: "图片放大",
+                description: "无损放大图片至4K高清分辨率，保持细节清晰",
+                icon: "fas fa-search-plus",
+                link: "https://www.runninghub.cn/ai-detail/2011252099568377858/",
+                badge: "hot",
+                badgeText: "热门"
+            },
+            {
+                id: 15,
+                title: "裤子转平铺",
+                description: "将实拍裤子图片转换为白底平铺图，标准化展示",
+                icon: "fas fa-hat-cowboy",
+                link: "https://www.runninghub.cn/ai-detail/2014625636735787010/",
+                badge: "",
+                badgeText: ""
+            }
+        ];
+
+        // 生成功能卡片
+        function renderFeatures() {
+            const container = document.getElementById('features-container');
+            container.innerHTML = '';
+            
+            features.forEach(feature => {
+                const card = document.createElement('div');
+                card.className = 'feature-card';
+                
+                // 确定徽章类
+                let badgeClass = '';
+                if (feature.badge === 'hot') badgeClass = 'badge-hot';
+                else if (feature.badge === 'new') badgeClass = 'badge-new';
+                else if (feature.badge === 'rec') badgeClass = 'badge-rec';
+                
+                card.innerHTML = `
+                    <div class="feature-icon">
+                        <i class="${feature.icon}"></i>
+                    </div>
+                    <h3 class="feature-title">${feature.title}</h3>
+                    <p class="feature-desc">${feature.description}</p>
+                    <a href="${feature.link}" target="_blank" class="feature-link">
+                        立即体验
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    ${feature.badge ? `<span class="feature-badge ${badgeClass}">${feature.badgeText}</span>` : ''}
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+
+        // 页面加载完成后渲染功能卡片
+        document.addEventListener('DOMContentLoaded', renderFeatures);
+        
+        // 添加卡片点击效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const featureCards = document.querySelectorAll('.feature-card');
+            
+            featureCards.forEach(card => {
+                // 添加点击效果
+                card.addEventListener('click', function(e) {
+                    // 如果不是点击链接本身，则触发链接点击
+                    if (!e.target.closest('.feature-link')) {
+                        const link = this.querySelector('.feature-link');
+                        if (link) {
+                            window.open(link.href, '_blank');
+                            
+                            // 添加点击反馈
+                            this.style.transform = 'translateY(-4px) scale(0.99)';
+                            setTimeout(() => {
+                                this.style.transform = '';
+                            }, 150);
+                        }
+                    }
+                });
+                
+                // 添加键盘导航支持
+                card.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        const link = this.querySelector('.feature-link');
+                        if (link) {
+                            window.open(link.href, '_blank');
+                        }
+                    }
+                });
+                
+                // 设置tabindex以便键盘导航
+                card.setAttribute('tabindex', '0');
+            });
+            
+            // 添加动态标题效果
+            const originalTitle = document.title;
+            let isBlurred = false;
+            
+            window.addEventListener('blur', function() {
+                if (!isBlurred) {
+                    document.title = "✨ XF智能办公等你回来！";
+                    isBlurred = true;
+                }
+            });
+            
+            window.addEventListener('focus', function() {
+                if (isBlurred) {
+                    document.title = originalTitle;
+                    isBlurred = false;
+                }
+            });
+            
+            // 添加滚动动画
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.feature-card').forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
